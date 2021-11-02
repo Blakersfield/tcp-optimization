@@ -1,6 +1,6 @@
 from flask import Flask
 from flask import send_from_directory
-import time
+from time import sleep
 
 app = Flask(__name__)
 app.config['STATIC_FOLDER'] = app.root_path + '/static/'
@@ -8,7 +8,8 @@ app.config['STATIC_FOLDER'] = app.root_path + '/static/'
 
 @app.route("/")
 def send_data():
-    return app.config['STATIC_FOLDER'] #"text out for harambe"
+    path = "<a href = \"/continuous\">test</a>"
+    return path
 
 @app.route("/test")
 def send_file():
@@ -16,5 +17,5 @@ def send_file():
 
 @app.route("/continuous")
 def cont_transf():
-    time.sleep(300)
+    sleep(300)
     return send_from_directory(app.config['STATIC_FOLDER'], 'harambe.jpg', as_attachment=True)
