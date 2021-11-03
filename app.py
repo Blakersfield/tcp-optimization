@@ -22,8 +22,8 @@ def cont_transf():
     return send_from_directory(app.config['STATIC_FOLDER'], 'harambe.jpg', as_attachment=True)
 
 
-@app.route('/download')
-def launch_client():
-    sleep(300)
-    return launch()
+# @app.route('/download')
+# def launch_client():
+#     sleep(300)
+#     return launch()
     

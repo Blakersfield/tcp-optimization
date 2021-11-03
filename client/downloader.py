@@ -1,11 +1,11 @@
-import urllib.request
+from urllib import request 
 import shutil
 
-def launch(): 
-    print('Launching client app...')
-    url = 'localhost:5000/download'
-    file_name = 'harambe.jpg'
-    with urllib.request.urlopen(url) as response, open(file_name, 'wb') as out_file:
-        shutil.copyfileobj(response, out_file)
+print('Launching client app...')
+url = 'http://127.0.0.1:5000/test'
+file_name = 'harambe.jpg'
+with request.urlopen(url) as response, open(file_name, 'wb') as out_file:
+    shutil.copyfileobj(response, out_file)
+    
 
 
