@@ -2,10 +2,16 @@ from flask import Flask
 from flask import send_from_directory
 from time import sleep
 from synchronization import *
+import threading
+from scripts import server_metrics
 
 app = Flask(__name__)
 app.config['STATIC_FOLDER'] = app.root_path + '/static/'
 setting_startup()
+
+thr = threading.Thread(target=server_metrics.record_metrics)
+thr.start()
+
 
 @app.route("/")
 def send_data():

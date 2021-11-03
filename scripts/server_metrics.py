@@ -2,7 +2,7 @@ import psutil
 import time
 import csv
 from datetime import datetime
-
+import threading
 
 def get_metrics():
 	cpu_usage = psutil.cpu_percent()
@@ -13,11 +13,15 @@ def get_metrics():
 	return [timestamp, cpu_usage, memory_usage, bytes_sent, bytes_recv]
 
 
-with open('log.csv','w', newline='') as log:
-	log_writer = csv.writer(log, delimiter=",")
+def record_metrics():
+	writer_lock = threading.Lock()
 
-	while True:
-		snapshot = get_metrics()
-		print(snapshot)
-		log_writer.writerow(snapshot)
-		time.sleep(5)
+	with open('log.csv', 'w+', newline='') as log:
+		log_writer = csv.writer(log, delimiter=",")
+
+		while True:
+			snapshot = get_metrics()
+			print(snapshot)
+			with writer_lock:
+				log_writer.writerow(snapshot)
+			time.sleep(5)
