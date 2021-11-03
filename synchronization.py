@@ -5,6 +5,7 @@ def connection_wait():
     """wait until connection count matches target count"""
     settings_dict = read_settings()
     settings_dict.update({"connection_count": str(int(settings_dict["connection_count"]) + 1)})
+    write_settings(settings_dict)
     cont = True
     while cont:
         settings_dict = read_settings()
