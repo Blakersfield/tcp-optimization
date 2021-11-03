@@ -29,3 +29,6 @@ def cont_transf():
     #add to
     sleep(300)
     return send_from_directory(app.config['STATIC_FOLDER'], 'harambe.jpg', as_attachment=True)
+
+
+    
