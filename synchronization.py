@@ -35,6 +35,7 @@ def read_settings():
     settings = file.readlines()
     output = {}
     for row in settings:
+        row = row.strip()
         parsed_row = row.split("=")
         output.update({parsed_row[0]: parsed_row[1]})
     file.close()
