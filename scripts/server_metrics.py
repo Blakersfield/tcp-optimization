@@ -23,8 +23,4 @@ async def recordMetrics():
 			## snapshot = get_metrics()
 			print(snapshot)
 			log_writer.writerow(snapshot)
-			await asyncio.sleep(50)
-
-	# while True:
-	# 	print("hello")
-	# 	await asyncio.sleep(5)
+			await asyncio.sleep(5)
