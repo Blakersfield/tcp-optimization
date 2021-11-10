@@ -13,6 +13,13 @@ async def get_metrics():
 	bytes_recv = psutil.net_io_counters().bytes_recv
 	return [timestamp, cpu_usage, memory_usage, bytes_sent, bytes_recv]
 
+async def get_additional_metrics():
+	temps = psutil.sensors.temperatures(), 
+	fans = psutil.sensors_fans(),
+	battery = psutil.sensors_battery()
+
+	return [psutil.boot_time()]
+
 async def recordMetrics():
 	with open('log.csv','w', newline='') as log:
 		log_writer = csv.writer(log, delimiter=",")
