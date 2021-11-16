@@ -9,7 +9,7 @@ def connection_wait():
     cont = True
     while cont:
         settings_dict = read_settings()
-        if get_conn_count(settings_dict) == get_targ_conn(settings_dict):
+        if get_conn_count(settings_dict) == get_targ_conn(settings_dict) and int(time.time()) % 5 == 0:
             cont = False
         else:
             time.sleep(time_sync())
