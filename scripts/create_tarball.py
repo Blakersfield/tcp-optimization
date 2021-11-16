@@ -10,19 +10,14 @@ def mktar(seed_file_path="../static/harambe.jpg", target_file_path="../static/ar
 
     if not os.path.exists("working/"):
         os.mkdir("working/")
+    tar = tarfile.open(target_file_path,"w")
 
     for i in range(1,iterations):
-        iterfile = "working/h"+str(i)+".jpg"
-        shutil.copyfile(seed_file_path,iterfile)
-        file_list.append(iterfile)
-
-    tar = tarfile.open(target_file_path,"w")
-    for name in file_list:
-        tar.add(name)
-    tar.close()
-
-    for i in file_list:
-        os.remove(i)
+        iter_file = "working/h"+str(i)+".jpg"
+        shutil.copyfile(seed_file_path,iter_file)
+        file_list.append(iter_file)
+        tar.add(iter_file)
+        os.remove(iter_file)
 
     os.rmdir("working/")
     print("done!")
