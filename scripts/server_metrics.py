@@ -10,8 +10,8 @@ def get_metrics():
 	timestamp = datetime.now().strftime("%H:%M:%S")
 	bytes_sent = psutil.net_io_counters().bytes_sent
 	bytes_recv = psutil.net_io_counters().bytes_recv
-	disk_usage = psutil.disk_usage('/')
-	packets_dropped_in = psutil.net_io_counters[6]
+	disk_usage = psutil.disk_io_counters().busy_time
+	packets_dropped_in = psutil.net_io_counters()[6]
 	packets_dropped_out = psutil.net_io_counters()[7]
 
 
