@@ -35,3 +35,12 @@ def cont_transf():
 
 
     
+@app.route("/start")
+def start():
+    return int(read_settings()['number_of_trials'])
+    
+    # remember to wrap to an int
+
+    
+    # returns number of trials
+    # return 
