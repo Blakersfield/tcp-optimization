@@ -1,6 +1,7 @@
 from urllib import request 
 import shutil
 from datetime import datetime
+import os
 
 '''
     automation algorithm
@@ -14,18 +15,26 @@ from datetime import datetime
 
 def autonomous_testing(target):
     url = 'http://' + target + ':5000/start-trials'
+    trials = 0
     with request.urlopen(url) as response:
         content = int(response.read().decode(response.headers.get_content_charset()))
+        trials = content
         for i in range(content):
-            fake_launch(target, i)
+            launch_autonomous(target, i)
+    # delete all tars
+    for i in range(trials):
+        os.remove(f'trial{i}.tar')
 
-def fake_launch(target, index): 
-    print('Launching (fake) client app..')
+    
+
+
+def launch_autonomous(target, index): 
+    print('Launching autonomous client app..')
     file_name = f'trial{index}.tar'
-    url = 'http://' + target + f':5000/sync-transfer-autonomous'
-    with request.urlopen(url) as response: 
-        content = response.read().decode(response.headers.get_content_charset())
-        print(content)
+    url = 'http://' + target + f':5000/sync-transfer-autonomous/<{index}>'
+    with request.urlopen(url) as response, open(file_name, 'wb') as out_file: 
+        shutil.copyfileobj(response, out_file)
+    print(f'transfer finished at: {datetime.now().strftime("%H:%M:%S")}')
 
 def launch(target):
     print('Launching client app...')

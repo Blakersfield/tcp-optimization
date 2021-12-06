@@ -15,19 +15,9 @@ def send_data():
     path = "<a href = \"/continuous\">test</a>"
     return path
 
-
 @app.route("/test")
 def send_file():
     return send_from_directory(app.config['STATIC_FOLDER'], 'arch.tar', as_attachment=True)
-
-@app.route('/sync-transfer-autonomous/<trial>')
-def sync_transfer_autonomous(trial):
-    # connection_wait()
-    print('here starts the autonomous sync transfer')
-    print('trial number: ', trial)
-    return '200 success'
-
-
 
 @app.route("/sync-transfer")
 def sync_transfer():
@@ -35,21 +25,24 @@ def sync_transfer():
     print(f'beginning transfer at: {datetime.now().strftime("%H:%M:%S")}')
     return send_from_directory(app.config['STATIC_FOLDER'], 'arch.tar', as_attachment=True)
 
-
 @app.route("/continuous")
 def cont_transf():
     #add to
     sleep(300)
     return send_from_directory(app.config['STATIC_FOLDER'], 'arch.tar', as_attachment=True)
-
-
     
 @app.route("/start-trials")
 def start_trials():
     trials = read_settings()['number_of_trials']
     return trials
-    # remember to wrap to an int
 
-    
-    # returns number of trials
-    # return 
+
+@app.route('/sync-transfer-autonomous/<trial>')
+def sync_transfer_autonomous(trial):
+    # as soon as everyboyd starts, we reset to zero
+    settings = read_settings()
+    settings['connection_count'] = '0'
+    write_settings(settings)
+    connection_wait()
+    print(f'beginning transfer at: {datetime.now().strftime("%H:%M:%S")}')
+    return send_from_directory(app.config['STATIC_FOLDER'], 'arch.tar', as_attachment=True)
