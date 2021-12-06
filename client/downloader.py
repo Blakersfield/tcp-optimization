@@ -10,10 +10,22 @@ from datetime import datetime
     4.) in those tests, hit sync transfer  
     5.) keep going until all trials are done
 '''
-def start(target):
-    url = 'http://' + target + ':5000/start'
+
+
+def autonomous_testing(target):
+    url = 'http://' + target + ':5000/start-trials'
     with request.urlopen(url) as response:
-        print(response)
+        content = int(response.read().decode(response.headers.get_content_charset()))
+        for i in range(content):
+            fake_launch(target, i)
+
+def fake_launch(target, index): 
+    print('Launching (fake) client app..')
+    file_name = f'trial{index}.tar'
+    url = 'http://' + target + f':5000/sync-transfer-autonomous'
+    with request.urlopen(url) as response: 
+        content = response.read().decode(response.headers.get_content_charset())
+        print(content)
 
 def launch(target):
     print('Launching client app...')

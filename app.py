@@ -4,6 +4,7 @@ from time import sleep
 from synchronization import *
 import time
 from datetime import datetime
+from client.downloader import autonomous_testing 
 
 app = Flask(__name__)
 app.config['STATIC_FOLDER'] = app.root_path + '/static/'
@@ -18,6 +19,14 @@ def send_data():
 @app.route("/test")
 def send_file():
     return send_from_directory(app.config['STATIC_FOLDER'], 'arch.tar', as_attachment=True)
+
+@app.route('/sync-transfer-autonomous/<trial>')
+def sync_transfer_autonomous(trial):
+    # connection_wait()
+    print('here starts the autonomous sync transfer')
+    print('trial number: ', trial)
+    return '200 success'
+
 
 
 @app.route("/sync-transfer")
@@ -35,10 +44,10 @@ def cont_transf():
 
 
     
-@app.route("/start")
-def start():
-    return int(read_settings()['number_of_trials'])
-    
+@app.route("/start-trials")
+def start_trials():
+    trials = read_settings()['number_of_trials']
+    return trials
     # remember to wrap to an int
 
     
