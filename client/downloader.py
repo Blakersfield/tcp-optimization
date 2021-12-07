@@ -12,6 +12,15 @@ import os
     5.) keep going until all trials are done
 '''
 
+def multiple_file_transfer(target):
+    url = 'http://' + target + ':5000/start-trials'
+    files = 0
+    with request.urlopen(url) as response:
+        content = int(response.read().decode(response.headers.get_content_charset()))
+        for i in range(content):
+            pass
+
+
 
 def autonomous_testing(target):
     url = 'http://' + target + ':5000/start-trials'
