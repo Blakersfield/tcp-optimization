@@ -52,9 +52,7 @@ def direct_transfer():
 @app.route('/sync-transfer-autonomous/<trial>')
 def sync_transfer_autonomous(trial):
     # as soon as everyboyd starts, we reset to zero
-    settings = read_settings()
-    settings['connection_count'] = '0'
-    write_settings(settings)
     connection_wait()
+    connection_start()
     print(f'beginning transfer at: {datetime.now().strftime("%H:%M:%S")}')
     return send_from_directory(app.config['STATIC_FOLDER'], 'arch.tar', as_attachment=True)
