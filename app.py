@@ -44,7 +44,7 @@ def start_files():
 
 
 @app.route('/direct-transfer/<trial>')
-def direct_transfer():
+def direct_transfer(trial):
     return send_from_directory(app.config['STATIC_FOLDER'], 'arch.tar', as_attachment=True)
 
     
