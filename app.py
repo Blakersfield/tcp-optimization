@@ -36,6 +36,18 @@ def start_trials():
     trials = read_settings()['number_of_trials']
     return trials
 
+@app.route('/start-files')
+def start_files():
+    files = read_settings()['number_of_files']
+    return files
+
+
+
+@app.route('/direct-transfer/<trial>')
+def direct_transfer(trial):
+    return send_from_directory(app.config['STATIC_FOLDER'], 'arch.tar', as_attachment=True)
+
+    
 
 @app.route('/sync-transfer-autonomous/<trial>')
 def sync_transfer_autonomous(trial):
