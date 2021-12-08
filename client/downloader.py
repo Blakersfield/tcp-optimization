@@ -19,10 +19,10 @@ def multiple_file_transfer(target):
     files = 0
     trials = 0
     with request.urlopen(getFiles) as response:
-        content = response.read().decode(response.headers.get_content_charset())
+        content = int(response.read().decode(response.headers.get_content_charset()))
         files = content
     with request.urlopen(getTrials) as response:
-        content = response.read().decode(response.headers.get_content_charset())
+        content = int(response.read().decode(response.headers.get_content_charset()))
         trials = content
     print(f'files {files} trials {trials}')
     for i in range(trials):
