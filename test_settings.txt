@@ -1,3 +1,4 @@
 connection_count=0
-target_connection=1
-number_of_trials=3
+target_connection=3
+connection_start=0
+number_of_trials=10

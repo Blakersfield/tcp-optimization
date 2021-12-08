@@ -14,6 +14,17 @@ def connection_wait():
         else:
             time.sleep(time_sync())
 
+def connection_start():
+    """check connection_start setting against connection count, if connection is the last one to start, reset count"""
+    settings_dict = read_settings()
+    conn_count = int(settings_dict['connection_count'])
+    conn_start = int(settings_dict['connection_start'])
+    if conn_count-1 == conn_start:
+        settings_dict['connection_count']='0'
+        settings_dict['connection_start']='0'
+    else:
+        settings_dict['connection_start']=str(conn_start+1)
+    write_settings(settings_dict)
 
 def time_sync(window=5):
     """return the number of seconds until the next multiple of 5"""
