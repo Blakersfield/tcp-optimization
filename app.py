@@ -36,15 +36,15 @@ def start_trials():
     trials = read_settings()['number_of_trials']
     return trials
 
-@app.route('/mft')
-def mft():
+@app.route('/start-files')
+def start_files():
     files = read_settings()['number_of_files']
     return files
 
 
-@app.route('/direct-transfer')
+
+@app.route('/direct-transfer/<trial>')
 def direct_transfer():
-    print(f'beginning transfer at: {datetime.now().strftime("%H:%M:%S")}')
     return send_from_directory(app.config['STATIC_FOLDER'], 'arch.tar', as_attachment=True)
 
     
