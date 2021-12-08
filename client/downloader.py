@@ -36,7 +36,8 @@ def launch_mft(target, trial):
     trialTXT = open(f'trial{trial}.txt', 'w+')
     trialTXT.write(start_trial_text)
 
-    file_name = f'trial{trial}.tar'
+    # file_name = f'trial{trial}.tar'
+    file_name = 'arch.tar'
     url = 'http://' + target + f':5000/direct-transfer/<{trial}>'
     with request.urlopen(url) as response, open(file_name, 'wb') as out_file: 
         shutil.copyfileobj(response, out_file)
